@@ -147,7 +147,13 @@ details p{margin:0 4px 16px;color:var(--muted);font-size:.9rem;max-width:80ch}
 .campaigns li{break-inside:avoid;padding:2px 0}
 
 
+/* Top-level tabs */
+main > section.tab.off{height:0;overflow:hidden;visibility:hidden;pointer-events:none;padding:0!important;margin:0!important;border:0!important}
+main > section.block{border-top:0;margin-top:0;padding-top:44px}
+main > section.hero{padding-top:44px}
+.nav a{cursor:pointer}
 /* LinkedIn sub-tabs */
+.pane.off{height:0;overflow:hidden;visibility:hidden;pointer-events:none}
 .subtabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:28px 0 10px;border-bottom:1px solid var(--line)}
 .subtabs button{flex:none;white-space:nowrap;border:0;background:none;font:inherit;font-size:.92rem;font-weight:500;color:var(--muted);padding:10px 4px;margin-right:18px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
 .subtabs button:hover{color:var(--ink)}
@@ -221,22 +227,26 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
 </header>
 
-<nav class="nav" aria-label="Sections">
+<nav class="nav" aria-label="Report tabs" role="tablist">
   <div class="wrap">
-    <a href="#overview">Overview</a>
-    <a href="#ads">Paid ads</a>
-    <a href="#budget">Budget</a>
-    <a href="#linkedin">LinkedIn</a>
-    <a href="#website">Website</a>
-    <a href="#magnets">Lead magnets</a>
-    <a href="#email">Email</a>
-    <a href="#mts">MTS app</a>
+    <a href="#overview" role="tab">Overview</a>
+    <a href="#ads" role="tab">All paid ads</a>
+    <a href="#google" role="tab">Google Ads</a>
+    <a href="#meta" role="tab">Meta Ads</a>
+    <a href="#linkedin" role="tab">LinkedIn</a>
+    <a href="#osocial" role="tab">Organic social</a>
+    <a href="#osearch" role="tab">Organic search</a>
+    <a href="#website" role="tab">Website</a>
+    <a href="#magnets" role="tab">Lead magnets</a>
+    <a href="#email" role="tab">Email</a>
+    <a href="#mts" role="tab">MTS app</a>
+    <a href="#budget" role="tab">Budget</a>
   </div>
 </nav>
 
 <main>
 <!-- OVERVIEW -->
-<section id="overview" class="hero">
+<section id="overview" class="hero tab">
   <div class="wrap">
     <div class="hero-grid">
       <div>
@@ -304,7 +314,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </section>
 
 <!-- PAID ADS -->
-<section id="ads" class="block">
+<section id="ads" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>Paid ads, week by week</h2>
@@ -361,7 +371,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </section>
 
 <!-- BUDGET -->
-<section id="budget" class="block">
+<section id="budget" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>Budget</h2>
@@ -398,8 +408,213 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   </div>
 </section>
 
+<!-- GOOGLE ADS -->
+<section id="google" class="block tab">
+  <div class="wrap">
+    <div class="block-head">
+      <h2>Google Ads</h2>
+      <p>Google is the steadiest lead source. It brought <strong>143 leads from June to September at ₹4,114 each</strong>, and the cost per lead has kept falling as more search campaigns went live: ₹2,737 in the first 18 days of October. In September, paid search was also the largest source of website visitors.</p>
+    </div>
+    <div class="score" id="gScore" style="margin-top:0"></div>
+    <div class="panel" style="margin-top:20px">
+      <div class="panel-head">
+        <div><h3 id="gWeeklyTitle">Leads and cost per lead, weekly</h3><p class="sub">28 June to 18 October. 15–18 Oct covers four days.</p></div>
+        <div class="seg" data-target="gWeekly">
+          <button type="button" data-v="leads" aria-pressed="true">Leads</button>
+          <button type="button" data-v="spend" aria-pressed="false">Spend</button>
+          <button type="button" data-v="clicks" aria-pressed="false">Clicks</button>
+        </div>
+      </div>
+      <div class="chart"><canvas id="gWeekly" role="img" aria-label="Google Ads weekly results"></canvas></div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Spend by month</h3><p class="sub">January to September</p></div></div>
+        <div class="chart"><canvas id="gMonthly" role="img" aria-label="Google Ads spend by month"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Website users from paid search</h3><p class="sub">January to September</p></div></div>
+        <div class="chart"><canvas id="gTraffic" role="img" aria-label="Paid search website users by month"></canvas></div>
+        <p class="note">April’s spike came from the MTS launch campaign, which asked only for an email. The site was down from mid-May to mid-June, so campaigns were paused and restarted on 15 June.</p>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="panel">
+        <h3 style="margin-bottom:12px">Results by period</h3>
+        <div class="tbl-wrap"><table id="gTable"></table></div>
+        <p class="note">June–September spend and leads come from the monthly budget sheet. Weekly periods come from the weekly ads dashboard, which also records clicks.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Downloads from Google campaigns</h3><p class="sub">18 lead-magnet leads</p></div></div>
+        <div class="chart short" style="height:250px"><canvas id="gMagnets" role="img" aria-label="Lead magnet leads from Google"></canvas></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <h3 style="margin-bottom:10px">The plan for Google</h3>
+        <div class="kv"><div>Campaigns planned</div><div>26</div><div>Budget per campaign a day</div><div>₹900</div><div>Planned a month</div><div>₹7.02L</div><div>September actual</div><div>₹2.21L</div></div>
+        <div class="callout"><strong>Still to launch: 12 campaigns</strong>, including Africa (5), MTS (2), automobile (1) and quality management system (1).</div>
+      </div>
+      <div class="panel">
+        <h3 style="margin-bottom:6px">Live campaigns <span class="pill" style="margin-left:6px">12</span></h3>
+        <ul class="campaigns">
+          <li>Manpower optimisation, search, India</li><li>Cable &amp; wire PPC lead gen</li><li>Brand search, India 2026</li><li>Cable &amp; wire lead gen, August</li><li>Warehouse search, India</li><li>Pharma search, August</li><li>OEE campaign, June</li><li>Racking search, India</li><li>Pharma PPC, August</li><li>Pizza blog PPC, August</li><li>Ceramic search, Morbi</li><li>Consulting search, India</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- META ADS -->
+<section id="meta" class="block tab">
+  <div class="wrap">
+    <div class="block-head">
+      <h2>Meta Ads</h2>
+      <p>Meta started in June and now brings the most leads each week, at the lowest cost: <strong>135 leads from June to September at ₹601 each</strong>, and 87 more in the first 18 days of October. Most come through native lead forms, so few people visit the website. Lead quality needs watching: the team paused one campaign for low-quality leads, and none of the 66 Meta download leads is marked qualified yet.</p>
+    </div>
+    <div class="score" id="mScore" style="margin-top:0"></div>
+    <div class="panel" style="margin-top:20px">
+      <div class="panel-head">
+        <div><h3 id="mWeeklyTitle">Leads and cost per lead, weekly</h3><p class="sub">16 August to 18 October. 15–18 Oct covers four days.</p></div>
+        <div class="seg" data-target="mWeekly">
+          <button type="button" data-v="leads" aria-pressed="true">Leads</button>
+          <button type="button" data-v="spend" aria-pressed="false">Spend</button>
+          <button type="button" data-v="clicks" aria-pressed="false">Clicks</button>
+        </div>
+      </div>
+      <div class="chart"><canvas id="mWeekly" role="img" aria-label="Meta Ads weekly results"></canvas></div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Spend by month</h3><p class="sub">June to September</p></div></div>
+        <div class="chart"><canvas id="mMonthly" role="img" aria-label="Meta Ads spend by month"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Downloads from Meta campaigns</h3><p class="sub">66 lead-magnet leads</p></div></div>
+        <div class="chart"><canvas id="mMagnets" role="img" aria-label="Lead magnet leads from Meta"></canvas></div>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="panel">
+        <h3 style="margin-bottom:12px">Results by period</h3>
+        <div class="tbl-wrap"><table id="mTable"></table></div>
+        <p class="note">Meta brings many clicks but turns about 0.5% of them into leads, against 2.3% for Google.</p>
+      </div>
+      <div class="panel">
+        <h3 style="margin-bottom:10px">The plan for Meta</h3>
+        <div class="kv"><div>Campaigns planned</div><div>5</div><div>Budget per campaign a day</div><div>₹650</div><div>Planned a month</div><div>₹0.98L</div><div>September actual</div><div>₹0.61L</div></div>
+        <p class="sub" style="margin:14px 0 6px">Live campaigns</p>
+        <ul class="campaigns" style="columns:1"><li>Awareness, website</li><li>Northern India major cities, video</li><li>Restaurant hygiene lead gen, India</li></ul>
+        <div class="callout"><strong>Lead quality.</strong> One Meta campaign was paused for low-quality leads. Of the 43 restaurant SOP download leads (42 from Meta), 6 are marked not qualified and 37 have no status yet.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIC SOCIAL -->
+<section id="osocial" class="block tab">
+  <div class="wrap">
+    <div class="block-head">
+      <h2>Organic social</h2>
+      <p>Organic social here is mainly Gemba’s LinkedIn page. It reached people very well in June and July, then fell when posting dropped from 80 posts in July to 18 in August and practical content gave way to more abstract posts. <strong>September showed a recovery</strong>: website visits from organic social rose to 1,539, and four resource-library posts on 15 September brought 13 leads.</p>
+    </div>
+    <div class="score" style="margin-top:0">
+      <div><b>1,539</b><span>Website users from organic social in September <em class="up">+811%</em> on August</span></div>
+      <div><b>20.34M</b><span>Organic LinkedIn impressions to date, as reported by the team</span></div>
+      <div><b>9.24%</b><span>Organic engagement rate, against 1.31% for paid</span></div>
+      <div><b>14</b><span>Leads tagged LinkedIn organic, June to September</span></div>
+      <div><b>0.37%</b><span>Click rate on the page’s call-to-action button</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Website users from organic social</h3><p class="sub">January to September</p></div></div>
+        <div class="chart"><canvas id="osTraffic" role="img" aria-label="Website users from organic social by month"></canvas></div>
+        <p class="note">The June drop followed the end of the “comment to get the template” approach.</p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Organic LinkedIn reach and new followers</h3><p class="sub">June to 17 October, from LinkedIn Page analytics</p></div></div>
+        <div class="chart"><canvas id="osReach" role="img" aria-label="Organic impressions and new organic followers"></canvas></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Posts per month and organic engagement</h3><p class="sub">September covers 1–9 Sep</p></div></div>
+        <div class="chart"><canvas id="osPosts" role="img" aria-label="Posts per month and organic engagement"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Weekly website users from organic social</h3><p class="sub">September to mid-October</p></div></div>
+        <div class="chart"><canvas id="osWeekly" role="img" aria-label="Weekly website users from organic social"></canvas></div>
+      </div>
+    </div>
+    <div class="brief" style="margin-top:20px">
+      <div class="panel">
+        <h3><span class="dot" style="background:var(--green)"></span>What works</h3>
+        <ul>
+          <li><strong>Practical, useful posts.</strong> Templates, checklists, tools, OEE, 5S, maintenance and safety content perform best. The top post, on lean manufacturing KPIs, had 182,541 impressions.</li>
+          <li><strong>Standard posts.</strong> They perform much better than articles and newsletters.</li>
+          <li><strong>Resource offers.</strong> The 15 September resource-library posts turned 57,858 impressions into 13 leads.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3><span class="dot" style="background:var(--amber)"></span>The team’s recovery plan</h3>
+        <ul>
+          <li><strong>About two useful posts a day,</strong> scheduled 9 AM–12 PM, weekends included.</li>
+          <li><strong>Bring back strong engagement drivers</strong> and make case studies more result-focused.</li>
+          <li><strong>Fix the page’s call-to-action,</strong> which has a 0.37% click rate.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIC SEARCH -->
+<section id="osearch" class="block tab">
+  <div class="wrap">
+    <div class="block-head">
+      <h2>Organic search</h2>
+      <p>Visitors from search engines fell steadily from 1,213 in January to 591 in July, a drop of about 47%. Unlike other channels, organic search had no May spike. <strong>It has grown for two months since</strong>: 640 in August and 765 in September, with 2 organic leads. The site’s health score is 93%, slightly above the top 10% of websites.</p>
+    </div>
+    <div class="score" style="margin-top:0">
+      <div><b>765</b><span>Users from organic search in September <em class="up">+19.5%</em> on August</span></div>
+      <div><b>10.8%</b><span>Share of all website users in September</span></div>
+      <div><b>2</b><span>Organic search leads in September</span></div>
+      <div><b>6</b><span>Website organic leads, June to September</span></div>
+      <div><b>93%</b><span>Site health on 19 October (top 10% of sites: 92%)</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head"><div><h3>Website users from organic search</h3><p class="sub">Bars show users. The line shows their share of all website users.</p></div></div>
+        <div class="chart"><canvas id="seoMonthly" role="img" aria-label="Organic search users by month"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>Weekly users</h3><p class="sub">September to mid-October</p></div></div>
+        <div class="chart"><canvas id="seoWeekly" role="img" aria-label="Weekly organic search users"></canvas></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="panel">
+        <h3 style="margin-bottom:12px">Keywords gaining ground</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Keyword</th><th>Position</th><th>Moved up</th><th>Visibility</th></tr></thead>
+          <tbody>
+            <tr><td>kairous enterprise ai</td><td>3</td><td class="up">97 places</td><td>0.12%</td></tr>
+            <tr><td>production costing software</td><td>45</td><td class="up">55 places</td><td>0.01%</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Read from the rank-tracking screenshot in the workbook.</p>
+      </div>
+      <div class="panel">
+        <h3 style="margin-bottom:6px">What affected search</h3>
+        <details open><summary>Templates page removed</summary><p>The lean templates and checklists page drew 118 search visitors in May and none in June, after it was taken off the site.</p></details>
+        <details><summary>Spam backlinks in May</summary><p>May brought many new backlinks from spam and low-quality sites, which raised the site’s toxic backlink score. This can weigh on search rankings until the bad links are disavowed or removed.</p></details>
+        <details><summary>Website downtime</summary><p>The site was down from mid-May to mid-June, which affected every channel, search included.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LINKEDIN -->
-<section id="linkedin" class="block">
+<section id="linkedin" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>LinkedIn</h2>
@@ -524,7 +739,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
 
     <!-- ORGANIC -->
-    <div class="pane" id="li-organic" role="tabpanel" hidden>
+    <div class="pane off" id="li-organic" role="tabpanel" aria-hidden="true" inert>
       <div class="grid g2">
         <div class="panel">
           <div class="panel-head"><div><h3>New followers each month</h3><p class="sub">14,813 gross additions, split by how people followed. Unfollows are not subtracted.</p></div></div>
@@ -556,10 +771,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
           <p class="note">Visitors are a sum of daily unique counts, so someone who returns on another day is counted again. Life page: 180 views from 71 visitors in October.</p>
         </div>
       </div>
+      <div class="panel" style="margin-top:20px">
+        <div class="panel-head"><div><h3>Organic and page numbers by month</h3><p class="sub">1 June to 17 October. October is a part month.</p></div></div>
+        <div class="tbl-wrap"><table id="liOrgTable"></table></div>
+      </div>
     </div>
 
     <!-- AUDIENCE -->
-    <div class="pane" id="li-audience" role="tabpanel" hidden>
+    <div class="pane off" id="li-audience" role="tabpanel" aria-hidden="true" inert>
       <div class="score" style="margin-top:0">
         <div><b>151,663</b><span>Followers on 19 October 2026</span></div>
         <div><b>17,739</b><span>Decision-makers (11.7% of followers)</span></div>
@@ -604,7 +823,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
 
     <!-- COSTS -->
-    <div class="pane" id="li-costs" role="tabpanel" hidden>
+    <div class="pane off" id="li-costs" role="tabpanel" aria-hidden="true" inert>
       <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))" id="liCostGrid">
         <div class="panel cost">
           <p class="sub">Ad spend, USD</p><b>$17,520</b><p class="sub">Campaign Manager, 1 June to 19 October</p>
@@ -642,7 +861,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
 
     <!-- HISTORY (workbook) -->
-    <div class="pane" id="li-history" role="tabpanel" hidden>
+    <div class="pane off" id="li-history" role="tabpanel" aria-hidden="true" inert>
       <div class="panel">
         <div class="panel-head">
           <div><h3 id="liTitle">Followers gained each month</h3><p class="sub">December 2025 to August 2026, from the workbook</p></div>
@@ -656,6 +875,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
           </div>
         </div>
         <div class="chart"><canvas id="liPage" role="img" aria-label="LinkedIn page metrics by month"></canvas></div>
+      </div>
+      <div class="panel" style="margin-top:20px">
+        <div class="panel-head"><div><h3>Page numbers by month, December to August</h3><p class="sub">From the workbook’s LinkedIn Numbers sheet. Change is August against December.</p></div></div>
+        <div class="tbl-wrap"><table id="liHistTable"></table></div>
       </div>
       <div class="grid g2" style="margin-top:20px">
         <div class="panel">
@@ -694,7 +917,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </section>
 
 <!-- WEBSITE -->
-<section id="website" class="block">
+<section id="website" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>Website traffic</h2>
@@ -716,23 +939,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <div class="panel">
         <div class="panel-head"><div><h3>Weekly users, September to mid-October</h3><p class="sub">By source</p></div></div>
         <div class="chart"><canvas id="webWeekly" role="img" aria-label="Weekly website users"></canvas></div>
-        <div class="callout"><strong>Check tracking.</strong> Website users fell to 314 and 334 in the first two October weeks, while Google Ads recorded 919 and 1,074 clicks in the same weeks.</div>
+        <!-- <div class="callout"><strong>Check tracking.</strong> Website users fell to 314 and 334 in the first two October weeks, while Google Ads recorded 919 and 1,074 clicks in the same weeks.</div> -->
       </div>
       <div class="panel">
         <h3 style="margin-bottom:6px">What moved each channel</h3>
-        <details open><summary>Organic social</summary><p>20.34M organic impressions so far, with 9.24% engagement against 1.31% for paid. June dropped after the “comment to get the template” approach stopped. August dropped again when posts fell from 80 to 18 and practical content gave way to more abstract posts. The page’s call-to-action click rate is 0.37%.</p></details>
-        <details><summary>Referral</summary><p>The May jump to 16,807 came mainly from spam sites such as xadsmart.com, blockadsnot.com and displayvertising.com. May also brought many low-quality backlinks, which raised the site’s toxic backlink score.</p></details>
+        <details open><summary>Referral</summary><p>The May jump to 16,807 came mainly from spam sites such as xadsmart.com, blockadsnot.com and displayvertising.com. May also brought many low-quality backlinks, which raised the site’s toxic backlink score.</p></details>
         <details><summary>Direct</summary><p>Direct traffic to the lean templates and checklists page fell 99.44% in June after the page was removed from the site.</p></details>
         <details><summary>Paid search</summary><p>April’s spike came from the MTS launch campaign, which asked only for an email address. The site was down from mid-May to mid-June, so campaigns were paused. They resumed on 15 June and traffic has climbed since.</p></details>
         <details><summary>Paid social</summary><p>May rose as LinkedIn campaigns sent people to dashboard and checklist downloads. From June, most LinkedIn and Meta campaigns use native lead forms, so fewer people visit the site.</p></details>
-        <details><summary>Organic search</summary><p>Down about 47% from January (1,213) to July (591), then up to 640 in August and 765 in September, with 2 organic leads. Site health is 93% as of 19 October.</p></details>
+        <p class="note" style="margin-top:14px">Organic social and organic search each have their own tab.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- LEAD MAGNETS -->
-<section id="magnets" class="block">
+<section id="magnets" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>Lead magnets and downloads</h2>
@@ -764,7 +986,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </section>
 
 <!-- EMAIL -->
-<section id="email" class="block">
+<section id="email" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>Email sequences</h2>
@@ -788,7 +1010,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </section>
 
 <!-- MTS -->
-<section id="mts" class="block">
+<section id="mts" class="block tab">
   <div class="wrap">
     <div class="block-head">
       <h2>MTS app</h2>
@@ -967,7 +1189,7 @@ const mts = {
 /* ---------- Helpers ---------- */
 const sum = a => a.reduce((x,y)=>x+(y||0),0);
 const inr = v => '₹' + Math.round(v).toLocaleString('en-IN');
-const inrS = v => { const a=Math.abs(v); if(a>=1e5){ return '₹'+(v/1e5).toFixed(a>=1e6?1:2).replace(/\.?0+$/,'')+'L'; } if(a>=1e3) return '₹'+Math.round(v/1e3)+'K'; return '₹'+Math.round(v); };
+const inrS = v => { const a=Math.abs(v); if(a>=1e5){ return '₹'+(v/1e5).toFixed(a>=1e6?1:2).replace(/\.?0+$/,'')+'L'; } if(a>=1e3) return '₹'+(v/1e3).toFixed(a<1e4?1:0).replace(/\.0$/,'')+'K'; return '₹'+Math.round(v); };
 const num = v => Math.round(v).toLocaleString('en-IN');
 const numS = v => { const a=Math.abs(v); if(a>=1e6) return (v/1e6).toFixed(1).replace(/\.0$/,'')+'M'; if(a>=1e3) return (v/1e3).toFixed(a>=1e4?0:1).replace(/\.0$/,'')+'K'; return String(v); };
 const pct = (v,d=1) => (v*100).toFixed(d)+'%';
@@ -988,7 +1210,8 @@ function setDefaults(){
   D.color = T.muted;
   D.borderColor = T.line;
   D.maintainAspectRatio = false;
-  D.animation = reduceMotion ? false : {duration:650,easing:'easeOutCubic'};
+  D.animation.duration = reduceMotion ? 0 : 500;
+  D.animation.easing = 'easeOutCubic';
   D.plugins.legend.labels.usePointStyle = true;
   D.plugins.legend.labels.pointStyle = 'rectRounded';
   D.plugins.legend.labels.boxWidth = 10; D.plugins.legend.labels.boxHeight = 10;
@@ -1014,8 +1237,17 @@ const noGrid = {display:false};
 const S = {liMonth:'all',liRank:'spend',liObj:'all',liMc:'June',liInd:'10',hero:'leads',weekly:'leads',range:'last4',liPage:'followers',liWeekly:'impr',cities:'followers',webMonthly:'stack',magnets:'asset',emailPick:'pp',mts:'installs'};
 const charts = {};
 const builders = {};
-function draw(id){ if(charts[id]) charts[id].destroy(); const el=document.getElementById(id); if(!el||el.offsetParent===null){ delete charts[id]; return; } const cfg = builders[id](); charts[id] = new Chart(document.getElementById(id), cfg); }
-function drawAll(){ readTheme(); setDefaults(); Object.keys(builders).forEach(draw); renderTables(); renderFollowStack(); renderLiKpis(); renderLiTables(); }
+function draw(id){
+  const el=document.getElementById(id); if(!el) return;
+  try{ if(charts[id]) charts[id].destroy(); } catch(e){}
+  try{ if(!T.ink){ readTheme(); setDefaults(); } charts[id] = new Chart(el, builders[id]()); }
+  catch(e){ console.error('Chart '+id+' failed:', e); }
+}
+function drawPane(pane){
+  /* wait one frame so the newly shown pane has its real size, then build its charts at that size */
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ pane.querySelectorAll('canvas').forEach(c=>{ if(builders[c.id]) draw(c.id); }); }));
+}
+function drawAll(){ readTheme(); setDefaults(); Object.keys(builders).forEach(draw); renderTables(); renderFollowStack(); renderLiKpis(); renderLiTables(); renderLiOrgTable(); renderLiHistTable(); renderPlatformTabs(); }
 
 /* ---------- Builders ---------- */
 builders.hero = () => {
@@ -1024,7 +1256,7 @@ builders.hero = () => {
   document.getElementById('heroSub').textContent = lead ? 'Bars show leads. The line shows what each lead cost.' : 'Google, LinkedIn and Meta, January to September';
   if(lead){
     const cpl = monthly.leads.map((l,i)=>monthly.spend[i]/l);
-    return {data:{labels:M9,datasets:[
+    return {type:'bar',data:{labels:M9,datasets:[
       {type:'bar',label:'Leads',data:monthly.leads,backgroundColor:M9.map((m,i)=>i>=5?T.green:alpha(T.green,.35)),yAxisID:'y',order:2,maxBarThickness:42},
       {type:'line',label:'Cost per lead',data:cpl,borderColor:T.amber,backgroundColor:T.amber,yAxisID:'y1',tension:.35,order:1,pointRadius:3}
     ]},options:{plugins:{tooltip:{callbacks:{label:c=>c.dataset.yAxisID==='y1'?` Cost per lead: ${inr(c.raw)}`:` Leads: ${c.raw}`}}},
@@ -1144,7 +1376,7 @@ builders.liWeekly = () => {
     options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${num(c.raw)}`}}},scales:{x:{stacked:true,grid:noGrid,ticks:{maxRotation:50,font:{size:10.5}}},y:{stacked:true,grid:grid(),ticks:{callback:numS},border:{display:false}}}}};
 };
 
-builders.liPosts = () => ({data:{labels:liP.labels,datasets:[
+builders.liPosts = () => ({type:'bar',data:{labels:liP.labels,datasets:[
     {type:'bar',label:'Posts',data:liP.posts,backgroundColor:T.linkedin,yAxisID:'y',order:2,maxBarThickness:46},
     {type:'line',label:'Organic engagement',data:liP.oer,borderColor:T.green,backgroundColor:T.green,yAxisID:'y1',order:1,tension:.3,pointRadius:4}]},
   options:{plugins:{tooltip:{callbacks:{label:c=>c.dataset.yAxisID==='y1'?` Organic engagement: ${c.raw}%`:` Posts: ${c.raw}`,afterBody:i=>`New followers: ${num(liP.followers[i[0].dataIndex])}`}}},
@@ -1211,7 +1443,7 @@ builders.mtsMonthly = () => {
   if(v==='installs'){ log=true; ds=[{type:'bar',label:'Organic installs',data:mts.organic,backgroundColor:T.green,maxBarThickness:30},{type:'bar',label:'Paid installs',data:mts.paid,backgroundColor:T.sky,maxBarThickness:30},target(220,'Organic target 220',T.green),target(2500,'Paid target 2,500',T.steel)]; }
   else if(v==='reg'){ ds=[{type:'bar',label:'Partial registrations',data:mts.preg,backgroundColor:alpha(T.green,.45),maxBarThickness:30},{type:'bar',label:'Registrations',data:mts.reg,backgroundColor:T.green,maxBarThickness:30},target(75,'Target 75',T.amber)]; }
   else { ds=[{type:'bar',label:'Search conversions',data:mts.search,backgroundColor:T.steel,maxBarThickness:40}]; }
-  return {data:{labels:L,datasets:ds},options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${num(c.raw)}`}}},
+  return {type:'bar',data:{labels:L,datasets:ds},options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${num(c.raw)}`}}},
     scales:{x:{grid:noGrid},y:{type:log?'logarithmic':'linear',grid:grid(),beginAtZero:!log,min:log?50:undefined,ticks:{callback:v=>(!log||[50,100,200,500,1000,2000].includes(v))?numS(v):''},border:{display:false},title:{display:log,text:'Log scale'}}}}};
 };
 builders.mtsWeekly = () => ({type:'line',data:{labels:mts.wLabels,datasets:[
@@ -1238,7 +1470,7 @@ const liValLabels = (fmt,horiz) => ({id:'vl',afterDatasetsDraw(ch){const {ctx}=c
 
 builders.liSpend = () => {
   const spend=lmo('Advertising spend USD'), leads=lmo('LinkedIn form leads'), cpl=lmo('Blended advertising CPL USD');
-  return {data:{labels:LMS,datasets:[
+  return {type:'bar',data:{labels:LMS,datasets:[
     {type:'bar',label:'Ad spend',data:spend,backgroundColor:T.linkedin,yAxisID:'y',order:2,maxBarThickness:52},
     {type:'line',label:'Form leads',data:leads,borderColor:T.green,backgroundColor:T.bg,pointBorderColor:T.green,pointBorderWidth:2.5,pointRadius:5,yAxisID:'y1',order:1}]},
     options:{layout:{padding:{top:16}},plugins:{tooltip:{callbacks:{title:i=>LM[i[0].dataIndex]+(i[0].dataIndex===4?' (1–19 Oct)':''),label:c=>c.datasetIndex===0?` Ad spend: ${fUSD(c.raw,2)}`:` Form leads: ${c.raw}`,footer:i=>'Cost per lead: '+fUSD(cpl[i[0].dataIndex],2)}}},
@@ -1251,7 +1483,7 @@ builders.liCpl = () => ({type:'line',data:{labels:LMS,datasets:[
   options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fUSD(c.raw,2)}`}}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,ticks:{callback:v=>fUSD(v)},border:{display:false}}}}});
 builders.liForm = () => {
   const opens=lmo('Paid form opens'), leads=lmo('LinkedIn form leads'), rate=opens.map((o,i)=>leads[i]/o*100);
-  return {data:{labels:LMS,datasets:[
+  return {type:'bar',data:{labels:LMS,datasets:[
     {type:'bar',label:'Form opens',data:opens,backgroundColor:alpha(T.linkedin,.55),yAxisID:'y',order:2,maxBarThickness:46},
     {type:'line',label:'Completion rate',data:rate,borderColor:T.amber,backgroundColor:T.amber,yAxisID:'y1',order:1,pointRadius:4}]},
     options:{plugins:{tooltip:{callbacks:{label:c=>c.datasetIndex===0?` Form opens: ${num(c.raw)}`:` Completion: ${c.raw.toFixed(1)}% (${leads[c.dataIndex]} leads)`}}},
@@ -1313,7 +1545,7 @@ builders.liImprMix = () => ({type:'bar',data:{labels:LMS,datasets:[
     {label:'Organic',data:lmo('Organic post impressions'),backgroundColor:T.green,maxBarThickness:46},
     {label:'Sponsored',data:lmo('Sponsored impressions (Page)'),backgroundColor:T.linkedin,maxBarThickness:46}]},
   options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${num(c.raw)}`,footer:i=>{const t=lmo('Total post impressions (Page)')[i[0].dataIndex];return `Total: ${num(t)}, organic share ${pct(lmo('Organic post impressions')[i[0].dataIndex]/t,0)}`;}}}},scales:{x:{stacked:true,grid:noGrid},y:{stacked:true,grid:grid(),ticks:{callback:numS},border:{display:false}}}}});
-builders.liEng = () => ({data:{labels:LMS,datasets:[
+builders.liEng = () => ({type:'bar',data:{labels:LMS,datasets:[
     {type:'bar',label:'Organic clicks',data:lmo('Organic clicks'),backgroundColor:T.green,yAxisID:'y',order:2,maxBarThickness:28},
     {type:'bar',label:'Reactions',data:lmo('Organic reactions'),backgroundColor:T.organic,yAxisID:'y',order:2,maxBarThickness:28},
     {type:'line',label:'Engagement rate',data:lmo('Organic engagement rate').map(v=>v*100),borderColor:T.amber,backgroundColor:T.amber,yAxisID:'y1',order:1,pointRadius:4}]},
@@ -1381,6 +1613,20 @@ function renderLiKpis(){
     return `<div class="f-row"><div class="f-lab"><b>${n}</b>${s?`<span>${s}</span>`:''}</div><div class="f-bar"><i style="width:${w}%;background:${tr?'var(--green-deep)':'var(--c-linkedin)'}"></i></div><div class="f-val"><b>${num(v)}</b><span>${conv}</span></div></div>`;
   }).join('');
 }
+
+
+function renderLiHistTable(){
+  const rows=[['Followers gained','followers'],['Impressions','impressions'],['Page views','views'],['Unique visitors','visitors'],['Reactions','reactions'],['Comments','comments']];
+  document.getElementById('liHistTable').innerHTML='<thead><tr><th>Measure</th>'+liMonths.map(m=>`<th>${m}</th>`).join('')+'<th>Change</th></tr></thead><tbody>'+
+    rows.map(([l,k])=>{const d=li[k];const ch=(d[d.length-1]-d[0])/d[0];return `<tr><td>${l}</td>${d.map(v=>`<td>${num(v)}</td>`).join('')}<td class="${ch>=0?'up':'down'}">${ch>=0?'+':'−'}${Math.abs(ch*100).toFixed(0)}%</td></tr>`;}).join('')+'</tbody>';
+}
+function renderLiOrgTable(){
+  const rows=[['New followers','New followers (gross additions)',num],['  Organic','New organic followers',num],['  Sponsored','New sponsored followers (Page)',num],['  Auto-invited','New auto-invited followers',num],
+    ['Organic impressions','Organic post impressions',num],['Sponsored impressions','Sponsored impressions (Page)',num],['Organic clicks','Organic clicks',num],['Reactions','Organic reactions',num],
+    ['Comments','Organic comments',num],['Reposts','Organic reposts',num],['Engagement rate','Organic engagement rate',v=>pct(v)],['Page views','Page views',num],['Visitors','Page visitors (daily uniques sum)',num]];
+  document.getElementById('liOrgTable').innerHTML='<thead><tr><th>Measure</th>'+LM.map((m,i)=>`<th>${i===4?'Oct (1–17)':m.slice(0,3)}</th>`).join('')+'<th>Total</th></tr></thead><tbody>'+
+    rows.map(([l,k,f])=>`<tr><td${l.startsWith('  ')?' style="padding-left:24px;color:var(--muted)"':''}>${l.trim()}</td>${LD.monthly[k].slice(0,5).map(v=>`<td>${f(v)}</td>`).join('')}<td><b style="font-weight:500">${f(LD.monthly[k][5])}</b></td></tr>`).join('')+'</tbody>';
+}
 let liSort={key:'spend',asc:false};
 function renderLiTables(){
   const cols=[['name','Campaign'],['obj','Objective'],['first','First delivery'],['spend','Spend'],['impr','Impressions'],['clicks','Clicks'],['ctr','CTR'],['leads','Leads'],['cpl','Cost per lead']];
@@ -1399,12 +1645,85 @@ document.getElementById('liMonthSeg').addEventListener('click',e=>{const b=e.tar
 document.querySelector('.subtabs').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;
   document.querySelectorAll('.subtabs button').forEach(x=>x.setAttribute('aria-selected',String(x===b)));
-  document.querySelectorAll('#linkedin .pane').forEach(p=>p.hidden = p.id!==b.dataset.pane);
-  document.getElementById(b.dataset.pane).querySelectorAll('canvas').forEach(c=>{ if(builders[c.id]) draw(c.id); });
+  document.querySelectorAll('#linkedin .pane').forEach(p=>{ const on = p.id===b.dataset.pane; p.classList.toggle('off',!on); p.setAttribute('aria-hidden',String(!on)); if(on) p.removeAttribute('inert'); else p.setAttribute('inert',''); });
+  /* panes stay laid out at full width while collapsed, so their charts are already drawn; a resize just confirms the size */
+  document.getElementById(b.dataset.pane).querySelectorAll('canvas').forEach(c=>{ const ch=charts[c.id]; if(ch){ try{ ch.resize(); }catch(e){} } else if(builders[c.id]) draw(c.id); });
 });
 
+/* ---------- Platform tabs: Google, Meta ---------- */
+const PF = {
+  g:{k:'google',name:'Google Ads',from:0,months:M9,spendM:monthly.google,js:{spend:588273,leads:143},mag:[['Multi-outlet pizza diagnostic',7],['Cable production planning kit',4],['Pizza quality control matrix',4],['“Output कम मिलना” lead magnet',1],['10-batch time-loss tracker',1],['Warehouse setup lead magnet',1]]},
+  m:{k:'meta',name:'Meta Ads',from:7,months:M9.slice(5),spendM:monthly.meta.slice(5),js:{spend:81147,leads:135},mag:[['SOP & record management',42],['“Output कम मिलना” lead magnet',13],['Outlet audit & compliance',9],['Multi-outlet pizza diagnostic',1],['44-point ceramics checklist',1]]}
+};
+S.gWeekly='leads'; S.mWeekly='leads';
+function pfPeriod(k,a,b){ const w=W[k], s=x=>sum(x.slice(a,b+1)); const spend=s(w.spend),leads=s(w.leads),clicks=s(w.clicks); return {spend,leads,clicks,cpl:spend/leads,cpc:spend/clicks,rate:leads/clicks}; }
+function pfWeeklyBuilder(p){ return () => {
+  const P=PF[p], w=W[P.k], f=P.from, m=S[p+'Weekly'], L=weeks.slice(f);
+  const title={leads:'Leads and cost per lead, weekly',spend:'Spend per week',clicks:'Clicks per week'}[m];
+  document.getElementById(p+'WeeklyTitle').textContent=title;
+  if(m==='leads'){ const cpl=w.leads.slice(f).map((l,i)=>l?w.spend[f+i]/l:null);
+    return {type:'bar',data:{labels:L,datasets:[
+      {type:'bar',label:'Leads',data:w.leads.slice(f),backgroundColor:T[P.k],yAxisID:'y',order:2,maxBarThickness:34},
+      {type:'line',label:'Cost per lead',data:cpl,borderColor:T.amber,backgroundColor:T.amber,yAxisID:'y1',order:1,pointRadius:3,spanGaps:true}]},
+      options:{plugins:{tooltip:{callbacks:{label:c=>c.datasetIndex===1?` Cost per lead: ${c.raw==null?'no leads':inr(c.raw)}`:` Leads: ${c.raw}`,footer:i=>'Spend: '+inr(w.spend[f+i[0].dataIndex])}}},
+        scales:{x:{grid:noGrid,ticks:{maxRotation:50,font:{size:11}}},y:{grid:grid(),beginAtZero:true,title:{display:true,text:'Leads'},border:{display:false}},y1:{position:'right',beginAtZero:true,grid:noGrid,ticks:{callback:inrS,color:T.amber},border:{display:false}}}}};
+  }
+  const money=m==='spend';
+  return {type:'bar',data:{labels:L,datasets:[{label:money?'Spend':'Clicks',data:w[m].slice(f),backgroundColor:T[P.k],maxBarThickness:34}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+(money?inr(c.raw):num(c.raw))}}},scales:{x:{grid:noGrid,ticks:{maxRotation:50,font:{size:11}}},y:{grid:grid(),beginAtZero:true,ticks:{callback:money?inrS:numS},border:{display:false}}}}};
+};}
+function pfMonthlyBuilder(p){ return () => { const P=PF[p];
+  return {type:'bar',data:{labels:P.months,datasets:[{label:'Spend',data:P.spendM,backgroundColor:T[P.k],maxBarThickness:44}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+inr(c.raw),afterLabel:c=>{if(!c.dataIndex)return '';const pr=P.spendM[c.dataIndex-1];return pr?` ${c.raw>=pr?'+':''}${pct((c.raw-pr)/pr,0)} on previous month`:'';}}}},
+      scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,ticks:{callback:inrS},border:{display:false}}}},
+    plugins:[liValLabels(v=>v?inrS(v):'',false)]};
+};}
+function pfMagBuilder(p){ return () => { const P=PF[p];
+  return {type:'bar',data:{labels:P.mag.map(x=>x[0]),datasets:[{label:'Leads',data:P.mag.map(x=>x[1]),backgroundColor:P.mag.map((x,i)=>i===0?T[P.k]:alpha(T[P.k],.6)),barThickness:16}]},
+    options:{indexAxis:'y',layout:{padding:{right:30}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw} leads`}}},scales:{x:{grid:grid(),beginAtZero:true,ticks:{precision:0},border:{display:false}},y:{grid:noGrid,ticks:{color:T.ink,font:{size:11}}}}},
+    plugins:[liValLabels(v=>String(v),true)]};
+};}
+['g','m'].forEach(p=>{ builders[p+'Weekly']=pfWeeklyBuilder(p); builders[p+'Monthly']=pfMonthlyBuilder(p); builders[p+'Magnets']=pfMagBuilder(p); });
+builders.gTraffic = () => ({type:'bar',data:{labels:M9,datasets:[{label:'Users',data:web.src[1][2],backgroundColor:T.v('--s-psearch'),maxBarThickness:44}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${num(c.raw)} users (${pct(c.raw/web.total[c.dataIndex],0)} of all website users)`}}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,ticks:{callback:numS},border:{display:false}}}},
+  plugins:[liValLabels(v=>numS(v),false)]});
+function renderPlatformTabs(){
+  ['g','m'].forEach(p=>{
+    const P=PF[p], l4=pfPeriod(P.k,13,16), oct=pfPeriod(P.k,14,16), js=P.js, sep=P.spendM[P.spendM.length-1], aug=P.spendM[P.spendM.length-2];
+    document.getElementById(p+'Score').innerHTML=[
+      [inrS(sep),`Spend in September <em class="${sep>=aug?'':'down'}">${sep>=aug?'+':'−'}${pct(Math.abs(sep-aug)/aug,0)}</em> on August`],
+      [String(js.leads),'Leads, June to September'],
+      [inr(js.spend/js.leads),'Cost per lead, June to September'],
+      [String(oct.leads),`Leads 1–18 Oct at ${inr(oct.cpl)} each`],
+      [String(W[P.k].ads[16]),'Ads running in mid-October']
+    ].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join('');
+    const cols=[['June–September',{spend:js.spend,leads:js.leads,cpl:js.spend/js.leads}],['Last 4 weeks (24 Sep–18 Oct)',l4],['1–18 October',oct]];
+    const row=(lab,f)=>`<tr><td>${lab}</td>${cols.map(([,o])=>`<td>${f(o)}</td>`).join('')}</tr>`;
+    document.getElementById(p+'Table').innerHTML='<thead><tr><th></th>'+cols.map(c=>`<th>${c[0]}</th>`).join('')+'</tr></thead><tbody>'+
+      row('Spend',o=>inr(o.spend))+row('Leads',o=>o.leads)+row('Cost per lead',o=>inr(o.cpl))+row('Clicks',o=>o.clicks?num(o.clicks):'–')+row('Cost per click',o=>o.cpc?inr(o.cpc):'–')+row('Clicks that became leads',o=>o.rate?pct(o.rate):'–')+'</tbody>';
+  });
+}
+
+/* ---------- Organic social, organic search ---------- */
+builders.osTraffic = () => ({type:'bar',data:{labels:M9,datasets:[{label:'Users',data:web.src[4][2],backgroundColor:M9.map((m,i)=>i===8?T.v('--s-osocial'):alpha(T.v('--s-osocial'),.65)),maxBarThickness:44}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${num(c.raw)} users (${pct(c.raw/web.total[c.dataIndex],0)} of all website users)`}}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,ticks:{callback:numS},border:{display:false}}}},
+  plugins:[liValLabels(v=>numS(v),false)]});
+builders.osWeekly = () => ({type:'bar',data:{labels:webW.labels,datasets:[{label:'Users',data:webW.src[4][2],backgroundColor:T.v('--s-osocial'),maxBarThickness:40}]},
+  options:{plugins:{legend:{display:false}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,border:{display:false}}}},plugins:[liValLabels(v=>String(v),false)]});
+builders.osReach = () => ({type:'bar',data:{labels:LMS,datasets:[
+    {type:'bar',label:'Organic impressions',data:lmo('Organic post impressions'),backgroundColor:T.green,yAxisID:'y',order:2,maxBarThickness:44},
+    {type:'line',label:'New organic followers',data:lmo('New organic followers'),borderColor:T.amber,backgroundColor:T.amber,yAxisID:'y1',order:1,pointRadius:4}]},
+  options:{plugins:{tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${num(c.raw)}`}}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,ticks:{callback:numS},border:{display:false}},y1:{position:'right',beginAtZero:true,grid:noGrid,ticks:{callback:numS,color:T.amber},border:{display:false}}}}});
+builders.osPosts = () => builders.liPosts();
+builders.seoMonthly = () => ({type:'bar',data:{labels:M9,datasets:[
+    {type:'bar',label:'Users',data:web.src[3][2],backgroundColor:T.v('--s-osearch'),yAxisID:'y',order:2,maxBarThickness:44},
+    {type:'line',label:'Share of website users',data:web.src[3][2].map((v,i)=>v/web.total[i]*100),borderColor:T.green,backgroundColor:T.green,yAxisID:'y1',order:1,pointRadius:4}]},
+  options:{plugins:{tooltip:{callbacks:{label:c=>c.datasetIndex===1?` Share of website users: ${c.raw.toFixed(1)}%`:` Users: ${num(c.raw)}`}}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,border:{display:false}},y1:{position:'right',beginAtZero:true,grid:noGrid,ticks:{callback:v=>v+'%',color:T.green},border:{display:false}}}}});
+builders.seoWeekly = () => ({type:'bar',data:{labels:webW.labels,datasets:[{label:'Users',data:webW.src[3][2],backgroundColor:T.v('--s-osearch'),maxBarThickness:40}]},
+  options:{plugins:{legend:{display:false}},scales:{x:{grid:noGrid},y:{grid:grid(),beginAtZero:true,border:{display:false}}}},plugins:[liValLabels(v=>String(v),false)]});
+
 /* ---------- Controls ---------- */
-const segTargets = {hero:['hero'],weekly:['weekly'],range:['cplBar'],liPage:['liPage'],liWeekly:['liWeekly'],cities:['cities'],webMonthly:['webMonthly'],magnets:['magnetChart'],emailPick:['emailDetail'],mts:['mtsMonthly'],liRank:['liRank'],liObj:['liRank'],liMc:['liMc'],liInd:['liInd']};
+const segTargets = {hero:['hero'],weekly:['weekly'],range:['cplBar'],liPage:['liPage'],liWeekly:['liWeekly'],cities:['cities'],webMonthly:['webMonthly'],magnets:['magnetChart'],emailPick:['emailDetail'],mts:['mtsMonthly'],gWeekly:['gWeekly'],mWeekly:['mWeekly'],liRank:['liRank'],liObj:['liRank'],liMc:['liMc'],liInd:['liInd']};
 function syncSeg(name){ document.querySelectorAll(`.seg[data-target="${name}"] button`).forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===S[name]))); }
 const ep = document.getElementById('emailPick');
 emails.forEach(e=>{ const b=document.createElement('button'); b.type='button'; b.dataset.v=e.key; b.textContent=e.short; b.setAttribute('aria-pressed',String(e.key===S.emailPick)); ep.appendChild(b); });
@@ -1414,15 +1733,25 @@ document.querySelectorAll('.seg').forEach(seg=>{
 });
 
 
-/* ---------- Section nav highlight ---------- */
-const links = [...document.querySelectorAll('.nav a')];
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)); const on=links.find(a=>a.classList.contains('on')); if(on) on.scrollIntoView({block:'nearest',inline:'nearest'}); } });
-},{rootMargin:'-35% 0px -60% 0px'});
-document.querySelectorAll('main > section').forEach(s=>io.observe(s));
+/* ---------- Top-level tabs ---------- */
+const tabLinks=[...document.querySelectorAll('.nav a')];
+const tabs=[...document.querySelectorAll('main > section.tab')];
+function showTab(id, push){
+  if(!tabs.some(s=>s.id===id)) id='overview';
+  tabs.forEach(s=>{ const on=s.id===id; s.classList.toggle('off',!on); s.setAttribute('aria-hidden',String(!on)); if(on) s.removeAttribute('inert'); else s.setAttribute('inert',''); });
+  tabLinks.forEach(a=>{ const on=a.getAttribute('href')==='#'+id; a.classList.toggle('on',on); a.setAttribute('aria-selected',String(on)); if(on) a.scrollIntoView({block:'nearest',inline:'nearest'}); });
+  if(push && history.replaceState) history.replaceState(null,'','#'+id);
+  window.scrollTo({top:0});
+  document.querySelectorAll('#'+id+' canvas').forEach(c=>{ const ch=charts[c.id]; if(ch){ try{ ch.resize(); }catch(e){} } });
+}
+tabLinks.forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); showTab(a.getAttribute('href').slice(1),true); }));
+window.addEventListener('hashchange',()=>showTab(location.hash.slice(1),false));
+showTab((location.hash||'#overview').slice(1),false);
 
-const start = () => drawAll();
-if(document.fonts && document.fonts.ready){ document.fonts.ready.then(start); } else { start(); }
+/* Draw straight away, then once more when the embedded font is ready (with a time limit so a slow font never leaves charts empty) */
+drawAll();
+if(document.fonts && document.fonts.ready){ Promise.race([document.fonts.ready, new Promise(r=>setTimeout(r,1500))]).then(()=>{ drawAll(); }); }
+window.addEventListener('load',()=>{ Object.values(charts).forEach(ch=>{ try{ ch.resize(); }catch(e){} }); });
 })();
 </script>
 </body>
